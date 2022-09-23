@@ -14,6 +14,8 @@ A tiny 3D slicer written from scratch, featuring:
 
 ![](screenshots/screenshot000.png)
 
+<sub>▲ *Test models sliced using t43 and printed on Ender 3 v1 with Overture Matte PLA light pink. 0.2mm layer height, 0.4mm nozzle, 220/60°C. US dime for size.*</sub>
+
 ## Usage
 
 This toolkit consists of several standalone commandline programs. Each program can be compiled from a corresponding C file, independent of others. To compile all the programs with `gcc`, type
@@ -45,7 +47,7 @@ Example usage, slicing an OBJ file and generating gcode:
 ./voxels_to_gcode dragon-acc-sup.bin -o dragon-acc-sup.gcode --config profiles/ender3.ini --step 3 --sink 18
 ```
 
-Use `--help` option for each of the commands to see what each of the arguments do.
+Use `--help` option for each of the commands to see what each of the arguments does.
 
 The Makefile in `example/` folder lists a lot more examples, both for slicing meshes (automated .obj download) as well as voxels (procedurally generated). To build all examples (will take a while): 
 
@@ -74,3 +76,9 @@ make bunny
 Work in progress...
 
 Explanatory blogpost coming soon...
+
+## Known Limitations
+
+- Slow
+- Few error messages
+- Tested on few hardware (Ender 3, Ender 3 V2)
