@@ -1,0 +1,14 @@
+.DS_Store
+*/.DS_Store
+**/.DS_Store
+.vscode/
+examples/models/
+examples/output/
+mesh_to_voxels
+march_voxels
+blur_voxels
+voxels_to_gcode
+generate_support
+voxel_convert
+accentuate_voxels
+voxel_viewer
