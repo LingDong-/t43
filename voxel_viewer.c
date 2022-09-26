@@ -45,12 +45,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
@@ -227,7 +227,7 @@ void draw(){
   gluOrtho2D(0,W,0,H);
 
   // glLoadIdentity();
-  draw_string("[WASDZX] to pan\n[QERF] to rotate\n[0] to reset",2,H);
+  draw_string("[WASDZX] to pan\n[QERF] to rotate\n[0] to reset\n[K] to switch shader\n[M] to switch to layer view\n",2,H);
 
   // printf("%d\n",frame);
   
@@ -333,7 +333,9 @@ void draw2(){
   glPopMatrix();
 
   glColor3f(1.0,1.0,1.0); 
-  draw_string("[WASDZX] to pan\n[QERF] to rotate\n[0] to reset",2,H);
+
+  draw_string("[CV/SHIFT+CV] to iterate layers\n[L] to toggle scale\n[M] to switch to model view\n",2,H);
+  
 
   // printf("%d\n",frame);
 }

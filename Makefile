@@ -7,4 +7,7 @@ all:
 	gcc -O3 generate_support.c -o generate_support
 	gcc -O3 voxel_convert.c -o voxel_convert
 	gcc -O3 accentuate_voxels.c -o accentuate_voxels
+
+viewer:
 	gcc -O3 voxel_viewer.c -framework OpenGL -framework GLUT -o voxel_viewer
+  #gcc -O3 voxel_viewer.c -lgl -lglut -o voxel_viewer

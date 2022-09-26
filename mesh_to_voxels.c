@@ -45,12 +45,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
@@ -83,7 +83,7 @@ void rast_destroy(rast_t* r){
 }
 void rast_repurpose(rast_t* r, int w, int h, int d){
   if (w*h*d > r->cap){
-    r->cap = w*h*d;
+    r->cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
     r->data = realloc(r->data,r->cap*sizeof(uint8_t));
   }
   r->w = w;
@@ -1160,7 +1160,7 @@ rast_t mesh_to_voxels(mesh_t* mesh, float step, int min_thick, int min_thin, int
     im.w = w;
     im.h = h;
     im.d = 1;
-    im.data = vox.data + (zi*w*h);
+    im.data = vox.data + ((uint64_t)zi*(uint64_t)w*(uint64_t)h);
 
     if (inv_flood){
       int lw = inv_flood-1;
@@ -1392,5 +1392,9 @@ int main(int argc, char** argv){
   rast_t vox = mesh_to_voxels(&mesh,step,min_thick,min_thin,no_hole,bridge,do_blur,check_dup,inv_flood,dump_pth);
   printf("[write bin] generating output...\n");
   write_voxels_to_file(outp_pth, &vox);
+
+  rast_destroy(&vox);
+  free(mesh.vtxs);
+  free(mesh.tris);
   return 0;
 }

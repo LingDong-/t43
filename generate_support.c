@@ -13,12 +13,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
@@ -302,7 +302,7 @@ int main(int argc, char** argv){
   vox2.w = vox.w;
   vox2.h = vox.h;
   vox2.d = vox.d-sink;
-  vox2.data = vox.data + (sink*vox.w*vox.h);
+  vox2.data = vox.data + ((uint64_t)sink*(uint64_t)vox.w*(uint64_t)vox.h);
 
   generate_support(&vox2);
   printf("[voxel] writing...\n");

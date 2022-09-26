@@ -474,12 +474,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
@@ -519,7 +519,7 @@ rast_t read_voxels_from_file(const char* pth){
 }
 void rast_repurpose(rast_t* r, int w, int h, int d){
   if (w*h*d > r->cap){
-    r->cap = w*h*d;
+    r->cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
     r->data = realloc(r->data,r->cap*sizeof(uint8_t));
   }
   r->w = w;
@@ -1450,7 +1450,7 @@ void voxels_to_gcode(FILE* fp, rast_t* r, const char* dump_pth){
     im.w = r->w;
     im.h = r->h;
     im.d = 1;
-    im.data = r->data + (z*r->w*r->h);
+    im.data = r->data + ((uint64_t)z*(uint64_t)r->w*(uint64_t)r->h);
 
     for (int i = 0; i < r->w*r->h; i++){
       tmp0.data[i] = im.data[i]==255;
@@ -1766,7 +1766,7 @@ int main(int argc, char** argv){
   vox2.w = vox.w;
   vox2.h = vox.h;
   vox2.d = vox.d-sink;
-  vox2.data = vox.data + (sink*vox.w*vox.h);
+  vox2.data = vox.data + ((uint64_t)sink*(uint64_t)vox.w*(uint64_t)vox.h);
 
   FILE* fp = fopen(outp_pth,"w+");
   voxels_to_gcode(fp,&vox2,dump_pth);

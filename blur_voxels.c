@@ -12,12 +12,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
@@ -122,7 +122,7 @@ void blur_voxels(rast_t* vox, int rad, int no_z, const char* dump_pth){
       im.w = voy.w;
       im.h = voy.h;
       im.d = 1;
-      im.data = voy.data + (z*voy.w*voy.h);
+      im.data = voy.data + ((uint64_t)z*(uint64_t)voy.w*(uint64_t)voy.h);
       sprintf(fname,"%s/%03d_blur.gif",dump_pth,z);
       write_gif(fname,&im);
     }
@@ -145,7 +145,7 @@ void blur_voxels(rast_t* vox, int rad, int no_z, const char* dump_pth){
         im.w = voy.w;
         im.h = voy.h;
         im.d = 1;
-        im.data = voy.data + (z*voy.w*voy.h);
+        im.data = voy.data + ((uint64_t)z*(uint64_t)voy.w*(uint64_t)voy.h);
         sprintf(fname,"%s/%03d_blur.gif",dump_pth,z);
         write_gif(fname,&im);
       }

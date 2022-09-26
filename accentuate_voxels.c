@@ -602,12 +602,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
@@ -684,15 +684,7 @@ void write_voxels_to_file(const char* pth, rast_t* vox){
   fwrite((vox->data),1,n,fp);
   fclose(fp);
 }
-void rast_repurpose(rast_t* r, int w, int h, int d){
-  if (w*h*d > r->cap){
-    r->cap = w*h*d;
-    r->data = realloc(r->data,r->cap*sizeof(uint8_t));
-  }
-  r->w = w;
-  r->h = h;
-  r->d = d;
-}
+
 
 void write_gif(const char* pth,rast_t* im){
   FILE *fp;
@@ -1062,7 +1054,7 @@ void accentuate_voxels(rast_t* vox, rast_t* rate_mask, int iters, const char* du
     im.w = vox->w;
     im.h = vox->h;
     im.d = 1;
-    im.data = vox->data + (z*vox->w*vox->h);
+    im.data = vox->data + ((uint64_t)z*(uint64_t)vox->w*(uint64_t)vox->h);
 
     rast_t rm;
     if (rate_mask){
@@ -1157,7 +1149,7 @@ void mush_edits(rast_t* vox0, rast_t* vox, int rad, const char* dump_pth){
       im.w = voy.w;
       im.h = voy.h;
       im.d = 1;
-      im.data = voy.data + (z*voy.w*voy.h);
+      im.data = voy.data + ((uint64_t)z*(uint64_t)voy.w*(uint64_t)voy.h);
       sprintf(fname,"%s/%03d_blur.gif",dump_pth,z);
       write_gif(fname,&im);
     }

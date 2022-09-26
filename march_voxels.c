@@ -21,10 +21,7 @@ typedef struct {
    Linearly interpolate the position where an isosurface cuts
    an edge between two vertices, each with their own scalar value
 */
-XYZ VertexInterp(isolevel,p1,p2,valp1,valp2)
-double isolevel;
-XYZ p1,p2;
-double valp1,valp2;
+XYZ VertexInterp(double isolevel,XYZ p1,XYZ p2,double valp1,double valp2)
 {
    double mu;
    XYZ p;
@@ -430,12 +427,12 @@ typedef struct {
   int w;
   int h;
   int d;
-  int cap;
+  uint64_t cap;
 } rast_t;
 
 rast_t new_rast(int w, int h, int d){
   rast_t r;
-  r.cap = w*h*d;
+  r.cap = (uint64_t)w*(uint64_t)h*(uint64_t)d;
   r.data = (uint8_t*) calloc(r.cap,sizeof(uint8_t));
   r.w = w;
   r.h = h;
