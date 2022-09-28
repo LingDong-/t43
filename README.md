@@ -63,6 +63,8 @@ cd examples
 make bunny
 ```
 
+(Work in progress) [online gcode viewer](https://t43-gcode-viewer.glitch.me/)
+
 ## Some Features
 
 ![](screenshots/screenshot001.png)
@@ -76,6 +78,12 @@ make bunny
 Work in progress...
 
 Explanatory blogpost coming soon...
+
+## Gallery
+
+<img src="screenshots/screenshot005.png" width="400"/>
+
+More test prints coming soon...
 
 ## Known Limitations
 
